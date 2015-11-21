@@ -1,309 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-    Document   : system_schema.xsd
-    Created on : September 29, 2003, 2:10 PM
-    Author     : Ted
-    Description:
-        Purpose of XML Schema document follows.
--->
+<!-- Document : system_schema.xsd Created on : September 29, 2003, 2:10 PM 
+	Author : Ted Description: Purpose of XML Schema document follows. -->
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                      targetNamespace="http://www.fb10.uni-bremen.de/anglistik/langpro/kpml/README.html" 
-                      xmlns="http://www.fb10.uni-bremen.de/anglistik/langpro/kpml/README.html" 
-                      elementFormDefault="qualified">
-    <!-- <xsd:include schemaLocation="system_output_schema"/> -->                   
-    <xsd:element name="SYSTEMS">
-        <xsd:complexType>  
-            <xsd:sequence>
-                <xsd:element name="COMMENTS" type="xsd:string">
-                </xsd:element>
-                <xsd:element name="IN-REGION" type="xsd:string">
-                </xsd:element>
-                <xsd:element name="IN-LANGUAGE">
-                    <xsd:simpleType>
-                        <xsd:list itemType="xsd:string"/>
-                    </xsd:simpleType>
-                </xsd:element>                
-                <xsd:element name="SYSTEM" minOccurs="1" maxOccurs="unbounded">
-                    <xsd:complexType>
-                        <xsd:sequence>
-                            <xsd:element name="SYSTEM-TYPE">
-                                <xsd:simpleType>
-                                    <xsd:restriction base="xsd:string">
-                                        <xsd:enumeration value="SYSTEM"/>
-                                        <xsd:enumeration value="GATE"/>
-                                    </xsd:restriction>
-                                </xsd:simpleType>
-                            </xsd:element>
-                            <xsd:element name="NAME" type="xsd:string"/>
-                            <xsd:element name="INPUTS" type="booleanExpressionType"/>
-                            <xsd:element name="OUTPUTS" type="outputExpressionType"/>
-                            <xsd:element name="CHOOSER" type="xsd:string" minOccurs="0"/>
-                            <xsd:element name="REGION" type="xsd:string" minOccurs="0"/>
-                            <xsd:element name="METAFUNCTION">
-                                <xsd:simpleType>
-                                    <xsd:restriction base="xsd:string">
-                                        <xsd:enumeration value="EXPERIENTIAL"/>
-                                        <xsd:enumeration value="IDEATIONAL"/>
-                                        <xsd:enumeration value="LOGICAL"/>
-                                        <xsd:enumeration value="INTERPERSONAL"/>
-                                        <xsd:enumeration value="TEXTUAL"/>
-                                    </xsd:restriction>
-                                </xsd:simpleType>
-                            </xsd:element>
-                        </xsd:sequence>
-                    </xsd:complexType>
-                </xsd:element>
-            </xsd:sequence>    
-        </xsd:complexType>
-    </xsd:element>
-    
-    <!--FOLLOWING GIVES SPECIFICATION OF BOOLEAN-TYPES -->
-    
-    <xsd:complexType name="booleanExpressionType">
-        <xsd:annotation><xsd:documentation>
-        This complexType is a definition for boolean expressions,
-        as used by the system specification files of KPML to satte
-        what features are required as input .
-        These contain orExpressions, andExpressions, and base symbols.
-        </xsd:documentation></xsd:annotation>
-        <xsd:choice minOccurs="1" maxOccurs="unbounded">
-            <xsd:element name="s" type="logicSymbolType"/>
-            <xsd:element name="and" type="andExpressionType"/>
-            <xsd:element name="or" type="orExpressionType"/>
-        </xsd:choice>
-    </xsd:complexType>            
-       
-    <xsd:complexType name="orExpressionType">
-        <xsd:choice minOccurs="2" maxOccurs="unbounded">
-            <xsd:element name="s" type="logicSymbolType"/>
-            <xsd:element name="and" type="andExpressionType"/>
-            <xsd:element name="or" type="orExpressionType"/>
-        </xsd:choice>
-    </xsd:complexType>
-   
-    <xsd:complexType name="andExpressionType">
-        <xsd:choice minOccurs="2" maxOccurs="unbounded">
-            <xsd:element name="s" type="logicSymbolType"/>
-            <xsd:element name="and" type="andExpressionType"/>
-            <xsd:element name="or" type="orExpressionType"/>
-        </xsd:choice>
-    </xsd:complexType>
-    
-    <xsd:simpleType name="logicSymbolType">
-        <xsd:restriction base="xsd:string">
-            <xsd:pattern value="[0-9a-zA-Z\-_]*"/>
-        </xsd:restriction>
-    </xsd:simpleType>    
-        
-       
-    <!--FOLLOWING GIVES SPECIFICATION OF OUTPUT-TYPES -->
-            <xsd:complexType name="outputExpressionType">
-                <xsd:sequence>
-                    <xsd:element name="out" minOccurs="1" maxOccurs="unbounded">
-                        <xsd:complexType>
-                            <xsd:sequence>
-                                <xsd:element name="probability" type="xsd:decimal"/>
-                                <xsd:element name="feature" type="xsd:string"/>
-                                <xsd:element name="realization" minOccurs="0" maxOccurs="1">
-                                    <xsd:complexType>
-                                        <xsd:choice minOccurs="1" maxOccurs="unbounded">
-                                            <xsd:element name="insert" type="insertType"/>
-                                            <xsd:element name="order-at-front" type="order-at-frontType"/>
-                                            <xsd:element name="order-at-end" type="order-at-endType"/>
-                                            <xsd:element name="expand" type="expandType"/>
-                                            <xsd:element name="conflate" type="conflateType"/>
-                                            <xsd:element name="preselect" type="preselectType"/>
-                                            <xsd:element name="partition" type="partitionType"/>
-                                            <xsd:element name="order" type="orderType"/>
-                                            <xsd:element name="classify" type="classifyType"/>   
-                                            <xsd:element name="outclassify" type="outclassifyType"/>
-                                            <xsd:element name="inflectify" type="inflectifyType"/>
-                                            <xsd:element name="lexify" type="lexifyType"/>
-                                            <xsd:element name="agreement" type="agreementType"/>               
-                                        </xsd:choice>
-                                    </xsd:complexType>
-                                </xsd:element>
-                                <!--<xsd:element ref="realization" minOccurs="0" maxOccurs="unbounded"/>-->                                        
-                            </xsd:sequence>      
-                        </xsd:complexType>
-                    </xsd:element>    
-                </xsd:sequence>    
-             </xsd:complexType> 
-             
-             <!--FOLLOWs GIVES SPECIFICATION OF REALIZATION OPERATORS,
-                    THAT ARE EMBEDDED IN THE OUTPUT EXPRESSIONS-->
-             
-             <xsd:complexType name="insertType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="order-at-frontType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="order-at-endType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-            
-             <xsd:complexType name="expandType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="conflateType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="preselectType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="partitionType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="orderType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="classifyType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="outclassifyType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="inflectifyType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-             
-             <xsd:complexType name="lexifyType">
-                <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>
-                            <xsd:element name="b" type="xsd:string"/>
-                        </xsd:sequence>
-                    </xsd:extension>
-                </xsd:complexContent>
-             </xsd:complexType>
-            
-             <xsd:complexType name="agreementType">
-                 <xsd:annotation><xsd:documentation>
-                        An agreement realization statement has the most complex
-                        syntax: it accepts a single string argument (the feature
-                        to which the agreement is applied, followed by at least
-                        one realization expression, which can be either one or
-                        two argument functions.
-                        ? can agreement accept another agreement as argument ?
-                 </xsd:documentation></xsd:annotation>
-                 <xsd:complexContent>
-                    <xsd:extension base="realizationType" >
-                        <xsd:sequence>
-                            <xsd:element name="a" type="xsd:string"/>    
-                            <xsd:element name="b"  type="xsd:string"/>
-                            <xsd:element name="realization">
-                                <xsd:complexType>
-                                    <xsd:choice minOccurs="1" maxOccurs="unbounded">
-                                        <xsd:element name="insert" type="insertType"/>
-                                        <xsd:element name="order-at-front" type="order-at-frontType"/>
-                                        <xsd:element name="order-at-end" type="order-at-endType"/>
-                                        <xsd:element name="expand" type="expandType"/>
-                                        <xsd:element name="conflate" type="conflateType"/>
-                                        <xsd:element name="preselect" type="preselectType"/>
-                                        <xsd:element name="partition" type="partitionType"/>
-                                        <xsd:element name="order" type="orderType"/>
-                                        <xsd:element name="classify" type="classifyType"/>   
-                                        <xsd:element name="outclassify" type="outclassifyType"/>
-                                        <xsd:element name="inflectify" type="inflectifyType"/>
-                                        <xsd:element name="lexify" type="lexifyType"/>
-                                        <xsd:element name="agreement" type="agreementType"/>               
-                                    </xsd:choice>
-                                </xsd:complexType>
-                            </xsd:element>
-                        </xsd:sequence>
-                    </xsd:extension>
-                 </xsd:complexContent>    
-             </xsd:complexType>           
-             
-             <xsd:complexType name="realizationType" abstract="true">
-                <xsd:sequence>        
-                </xsd:sequence>
-             </xsd:complexType>
+	targetNamespace="http://www.uppermodel.org/uam/systems" xmlns="http://www.uppermodel.org/uam/systems"
+	elementFormDefault="qualified">
+	<!-- <xsd:include schemaLocation="system_output_schema"/> -->
+	<xsd:element name="NETWORK">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ROOT">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="FEATURE" type="featureIndexType" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="SYSTEMS">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SYSTEM" minOccurs="1" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="NAME" type="xsd:string" />
+										<xsd:element name="EC" type="ecType" minOccurs="1"
+											maxOccurs="1" />
+										<xsd:element name="FEATURES" type="featureType" />
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="featureIndexType">
+		<xsd:sequence>
+			<xsd:element name="NAME" type="xsd:string" />
+			<xsd:element name="STATE" type="stateType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="stateType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="active|inactive" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ecType" mixed="true">
+		<xsd:sequence>
+			<xsd:element name="OP" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="and|or|not" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="FEATURE" type="featureIndexType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<!--FOLLOWING GIVES SPECIFICATION OF BOOLEAN-TYPES -->
+
+	<xsd:complexType name="booleanExpressionType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This complexType is a definition for boolean
+				expressions,
+				as used by the system specification files of KPML to
+				satte
+				what features are required as input .
+				These contain
+				orExpressions, andExpressions, and base symbols.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="s" type="logicSymbolType" />
+			<xsd:element name="and" type="andExpressionType" />
+			<xsd:element name="or" type="orExpressionType" />
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="orExpressionType">
+		<xsd:choice minOccurs="2" maxOccurs="unbounded">
+			<xsd:element name="s" type="logicSymbolType" />
+			<xsd:element name="and" type="andExpressionType" />
+			<xsd:element name="or" type="orExpressionType" />
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="andExpressionType">
+		<xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="logicSymbolType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9a-zA-Z\-_]*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="featureType">
+		<xsd:sequence>
+			<xsd:element name="FEATURE" minOccurs="1" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="NAME" type="xsd:string" />
+						<xsd:element name="STATE" type="stateType" />
+						<xsd:element name="REALISATIONS" minOccurs="0"
+							maxOccurs="1">
+							<xsd:complexType>
+								<xsd:choice minOccurs="1" maxOccurs="unbounded">
+									<xsd:element name="REALISATION" type="realisationType" />
+								</xsd:choice>
+							</xsd:complexType>
+						</xsd:element>
+						<!--<xsd:element ref="realization" minOccurs="0" maxOccurs="unbounded"/> -->
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="realisationType">
+		<xsd:sequence>
+			<xsd:element name="OP" type="opType" />
+			<xsd:element name="ARGS" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="opType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern
+				value="Insert|Conflate|Expand|PutAtFirst|PutAtLast|PutBefore|PutRightBefore|PutAfter|PutRightAfter|Preselect|Classify|Outclassify|Inflectify|Lexify|Agree" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
 </xsd:schema>

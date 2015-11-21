@@ -56,7 +56,7 @@
 	</xs:complexType>
 	<xs:simpleType name="metafunctionType">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="None|Experiential|Logical|Interpersonal|Textual" />
+			<xs:pattern value="None|Ideational|Experiential|Logical|Interpersonal|Textual" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="FeatureType">

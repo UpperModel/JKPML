@@ -41,7 +41,7 @@
                             <xsd:element name="OUTPUTS" type="outputExpressionType"/>
                             <xsd:element name="CHOOSER" type="xsd:string" minOccurs="0"/>
                             <xsd:element name="REGION" type="xsd:string" minOccurs="0"/>
-                            <xsd:element name="METAFUNCTION">
+                            <xsd:element name="METAFUNCTION" minOccurs="0">
                                 <xsd:simpleType>
                                     <xsd:restriction base="xsd:string">
                                         <xsd:enumeration value="EXPERIENTIAL"/>
