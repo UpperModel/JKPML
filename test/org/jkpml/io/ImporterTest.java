@@ -10,7 +10,6 @@ import org.jkpml.dto.SflGate;
 import org.jkpml.dto.SflIntersectionCondition;
 import org.jkpml.dto.SflResource;
 import org.jkpml.dto.SflSystem;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ImporterTest {
