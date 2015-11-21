@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Document : system_schema.xsd Created on : September 29, 2003, 2:10 PM 
+	Author : Ted Description: Purpose of XML Schema document follows. -->
+
+<xs:schema xmlns="http://www.uppermodel.org/gam/systems"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.uppermodel.org/gam/systems"
+	elementFormDefault="qualified">
+	<xs:element name="Region" type="RegionType" />
+	<xs:complexType name="RegionType">
+		<xs:choice minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="System" type="SystemType" />
+			<xs:element name="Gate" type="GateType" />
+		</xs:choice>
+		<xs:attributeGroup ref="RegionAttributeGroup" />
+	</xs:complexType>
+	<xs:attributeGroup name="RegionAttributeGroup">
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="stratum" type="stratumType" use="required" />
+	</xs:attributeGroup>
+	<xs:simpleType name="stratumType">
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="Phonetics|Phonology|Graphics|Graphology|Lexicogrammar|Semantics" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SystemType">
+		<xs:sequence>
+			<xs:element name="EntryCondition" type="EntryConditionType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="Feature" type="FeatureType" minOccurs="2" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attributeGroup ref="SystemAttributeGroup" />
+	</xs:complexType>
+	<xs:attributeGroup name="SystemAttributeGroup">
+		<xs:attribute name="name" type="upper-case-string" use="required" />
+		<xs:attribute name="metafunction" type="metafunctionType"
+			default="None" />
+	</xs:attributeGroup>
+	<xs:complexType name="GateType">
+		<xs:sequence>
+			<xs:element name="EntryCondition" type="EntryConditionType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="Feature" type="FeatureType" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attributeGroup ref="GateAttributeGroup" />
+	</xs:complexType>
+	<xs:attributeGroup name="GateAttributeGroup">
+		<xs:attribute name="name" type="upper-case-string" use="required" />
+	</xs:attributeGroup>
+	<xs:complexType name="EntryConditionType">
+		<xs:choice minOccurs="1" maxOccurs="1">
+			<xs:element name="And" type="AndType" />
+			<xs:element name="Or" type="OrType" />
+			<xs:element name="Not" type="NotType" />
+			<xs:element name="Feature" type="FeatureIndexType" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="metafunctionType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="None|Experiential|Logical|Interpersonal|Textual" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="FeatureType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Insert" type="InsertType" />
+			<xs:element name="Expand" type="ExpandType" />
+			<xs:element name="Conflate" type="ConflateType" />
+			<xs:element name="PutAtFirst" type="PutAtFirstType" />
+			<xs:element name="PutAtLast" type="PutAtLastType" />
+			<xs:element name="PutAfter" type="PutAfterType" />
+			<xs:element name="PutRightAfter" type="PutRightAfterType" />
+			<xs:element name="Preselect" type="PreselectType" />
+			<xs:element name="Classify" type="ClassifyType" />
+			<xs:element name="Outclassify" type="OutclassifyType" />
+			<xs:element name="Inflectify" type="InflectifyType" />
+			<xs:element name="Lexify" type="LexifyType" />
+			<xs:element name="Agree" type="AgreeType" />
+		</xs:choice>
+		<xs:attributeGroup ref="FeatureAttributeGroup" />
+	</xs:complexType>
+	<xs:attributeGroup name="FeatureAttributeGroup">
+		<xs:attribute name="name" type="lower-case-string" use="required" />
+		<xs:attribute name="active" type="xs:boolean" default="true" />
+		<xs:attribute name="probability" type="xs:double"
+			default="0.0" />
+		<xs:attribute name="gloss" type="xs:string" default="" />
+		<xs:attribute name="comment" type="xs:string" default="" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="TitleAttributeGroup">
+		<xs:attribute name="a" type="title-case-string" use="required" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="TitleTitleAttributeGroup">
+		<xs:attribute name="a" type="title-case-string" use="required" />
+		<xs:attribute name="b" type="title-case-string" use="required" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="TitleLowerAttributeGroup">
+		<xs:attribute name="a" type="title-case-string" use="required" />
+		<xs:attribute name="b" type="lower-case-string" use="required" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="TitleUpperAttributeGroup">
+		<xs:attribute name="a" type="title-case-string" use="required" />
+		<xs:attribute name="b" type="upper-case-string" use="required" />
+	</xs:attributeGroup>
+	<xs:complexType name="InsertType">
+		<xs:attributeGroup ref="TitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="ExpandType">
+		<xs:attributeGroup ref="TitleTitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="ConflateType">
+		<xs:attributeGroup ref="TitleTitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="PutAtFirstType">
+		<xs:attributeGroup ref="TitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="PutAtLastType">
+		<xs:attributeGroup ref="TitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="PutAfterType">
+		<xs:attributeGroup ref="TitleTitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="PutRightAfterType">
+		<xs:attributeGroup ref="TitleTitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="PreselectType">
+		<xs:attributeGroup ref="TitleLowerAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="ClassifyType">
+		<xs:attributeGroup ref="TitleLowerAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="OutclassifyType">
+		<xs:attributeGroup ref="TitleLowerAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="InflectifyType">
+		<xs:attributeGroup ref="TitleLowerAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="LexifyType">
+		<xs:attributeGroup ref="TitleUpperAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="AgreeType">
+		<xs:sequence>
+			<xs:element name="Agreement" minOccurs="2" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Feature" type="FeatureIndexType"
+							minOccurs="2" maxOccurs="2" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="TitleTitleAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="FeatureIndexType">
+		<xs:attribute name="name" type="lower-case-string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="AndType">
+		<xs:choice minOccurs="2" maxOccurs="unbounded">
+			<xs:element name="And" type="AndType" />
+			<xs:element name="Or" type="OrType" />
+			<xs:element name="Not" type="NotType" />
+			<xs:element name="Feature" type="FeatureIndexType" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="OrType">
+		<xs:choice minOccurs="2" maxOccurs="unbounded">
+			<xs:element name="And" type="AndType" />
+			<xs:element name="Or" type="OrType" />
+			<xs:element name="Not" type="NotType" />
+			<xs:element name="Feature" type="FeatureIndexType" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="NotType">
+		<xs:choice minOccurs="1" maxOccurs="1">
+			<xs:element name="And" type="AndType" />
+			<xs:element name="Or" type="OrType" />
+			<xs:element name="Not" type="NotType" />
+			<xs:element name="Feature" type="FeatureIndexType" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="title-case-string">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z][a-z0-9]+(&amp;{0,1}[A-Z][a-z0-9]+)*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lower-case-string">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-z][a-z0-9]+([_&amp;-][a-z][a-z0-9]+)*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="upper-case-string">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z][A-Z0-9]+([_&amp;-][A-Z][A-Z0-9]+)*" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

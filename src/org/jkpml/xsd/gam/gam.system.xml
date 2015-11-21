@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Region xmlns="http://www.uppermodel.org/gam/systems" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.uppermodel.org/gam/systems gam.system.xsd"
+	name="Sample" stratum="Lexicogrammar">
+	<System name="STRATUM">
+		<EntryCondition>
+			<Feature name="structure" />
+		</EntryCondition>
+		<Feature name="semantic" />
+		<Feature name="lexicogrammatical" />
+		<Feature name="graphological" />
+		<Feature name="graphical" />
+		<Feature name="phonological" />
+		<Feature name="phonetical" />
+	</System>
+	<System name="GRAMMATICAL-RANK">
+		<EntryCondition>
+			<Feature name="lexicogrammatical" />
+		</EntryCondition>
+		<Feature name="clause">
+			<Insert a="Process" />
+			<Conflate a="Process" b="Finite" />
+			<Expand a="Mood" b="Finite" />
+			<PutAtFirst a="Mood" />
+			<PutAtLast a="Tag" />
+			<PutRightAfter a="Subject" b="Finite" />
+			<PutAfter a="Process" b="Attribute" />
+			<Preselect a="Subject" b="nominative" />
+			<Classify a="Process" b="verb" />
+			<Outclassify a="Process" b="auxiliary-verb" />
+			<Inflectify a="Process" b="present" />
+			<Lexify a="Process" b="BEING-SOMEWHERE" />
+			<Agree a="Subject" b="Process">
+				<Agreement>
+					<Feature name="addresser" />
+					<Feature name="addresser-conjugated" />
+				</Agreement>
+				<Agreement>
+					<Feature name="addressee" />
+					<Feature name="addressee-conjugated" />
+				</Agreement>
+				<Agreement>
+					<Feature name="non-concerned-singular" />
+					<Feature name="non-concerned-singular-conjugated" />
+				</Agreement>
+				<Agreement>
+					<Feature name="plural" />
+					<Feature name="plural-conjugated" />
+				</Agreement>
+			</Agree>
+		</Feature>
+		<Feature name="mention" probability="0.5" />
+		<Feature name="word" />
+		<Feature name="morpheme" />
+	</System>
+</Region>

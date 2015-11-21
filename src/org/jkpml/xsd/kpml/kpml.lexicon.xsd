@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : lexicon_schema.xsd
+    Created on : December 17, 2003, 11:12 AM
+    Author     : Ted    
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://xml.netbeans.org/examples/targetNS"
+            xmlns="http://xml.netbeans.org/examples/targetNS"
+            elementFormDefault="qualified">
+            
+            <xsd:element name="lexicon">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="inLanguage" type="xsd:string"/>
+                        <xsd:element name="lexicalItem" type="lexicalItemType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:complexType name="lexicalItemType">
+                <xsd:all>
+                    <xsd:element name="name" type="xsd:string"/>
+                    <xsd:element name="spelling" type="xsd:string"/>
+                    <xsd:element name="sampleSentence" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="features" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="f" type="xsd:string" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="properties" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="list" maxOccurs="unbounded">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="feature" type="xsd:string"/>
+                                            <xsd:element name="property" type="xsd:string" maxOccurs="unbounded"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>                                
+                    <xsd:element name="comments" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="editor" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="date" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="semantics" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="nil" maxOccurs="unbounded" fixed=""/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:complexType>                    
+</xsd:schema>
+
