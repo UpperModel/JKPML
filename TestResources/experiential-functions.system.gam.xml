@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Region xmlns="http://www.uppermodel.org/gam/systems" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="experiential-functions" stratum="Lexicogrammar" xsi:schemaLocation="http://www.uppermodel.org/gam/systems gam.system.xsd">
+    <System metafunction="Ideational" name="RELATIONAL-MODE">
+        <EntryCondition>
+            <Feature name="relational"/>
+        </EntryCondition>
+        <Feature name="attributive" probability="0.5">
+            <Insert a="Carrier"/>
+            <Insert a="Attribute"/>
+        </Feature>
+        <Feature name="identifying" probability="0.5">
+            <Insert a="Token"/>
+            <Insert a="Value"/>
+        </Feature>
+    </System>
+    <System metafunction="Ideational" name="RELATIONAL">
+        <EntryCondition>
+            <Feature name="relational2"/>
+        </EntryCondition>
+        <Feature name="epithet" probability="0.3333333333333333"/>
+        <Feature name="possessive2" probability="0.3333333333333333"/>
+        <Feature name="incidental2" probability="0.3333333333333333"/>
+    </System>
+    <System metafunction="Ideational" name="RELATIONAL-TYPE2">
+        <EntryCondition>
+            <Feature name="relational-participant"/>
+        </EntryCondition>
+        <Feature name="carrier" probability="0.5"/>
+        <Feature name="attribute" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="RELATIONAL-TYPE1">
+        <EntryCondition>
+            <Feature name="relational-participant"/>
+        </EntryCondition>
+        <Feature name="possessor" probability="0.14285714285714285"/>
+        <Feature name="possessed" probability="0.14285714285714285"/>
+        <Feature name="domain" probability="0.14285714285714285"/>
+        <Feature name="range" probability="0.14285714285714285"/>
+        <Feature name="incidence" probability="0.14285714285714285"/>
+        <Feature name="entity" probability="0.14285714285714285"/>
+        <Feature name="property" probability="0.14285714285714285"/>
+    </System>
+    <System metafunction="Ideational" name="CLAUSE-TYPE">
+        <EntryCondition>
+            <Feature name="clause"/>
+        </EntryCondition>
+        <Feature name="being-and-having" probability="0.5"/>
+        <Feature name="doing-and-happening" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="EXPERITIAL-DOWNRANKED">
+        <EntryCondition>
+            <Feature name="downranked"/>
+        </EntryCondition>
+        <Feature name="relational2" probability="0.5"/>
+        <Feature name="thing" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="RANK">
+        <EntryCondition>
+            <Feature name="wording"/>
+        </EntryCondition>
+        <Feature name="clause" probability="0.5"/>
+        <Feature name="group-phrase" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="INTERPERSONAL-DOWNRANKED">
+        <EntryCondition>
+            <Feature name="downranked"/>
+        </EntryCondition>
+        <Feature name="head" probability="0.5"/>
+        <Feature name="modifier" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="POSSESSIVE-DIATHESIS">
+        <EntryCondition>
+            <Feature name="possessive"/>
+        </EntryCondition>
+        <Feature name="having-type" probability="0.5"/>
+        <Feature name="belonging-type" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="RELATIONAL-TYPE">
+        <EntryCondition>
+            <Feature name="relational"/>
+        </EntryCondition>
+        <Feature name="intrinsic" probability="0.3333333333333333"/>
+        <Feature name="incidental" probability="0.3333333333333333"/>
+        <Feature name="possessive" probability="0.3333333333333333">
+            <Insert a="Possessor"/>
+            <Insert a="Possessed"/>
+        </Feature>
+    </System>
+    <System metafunction="Ideational" name="POSSESSIVE-TYPE">
+        <EntryCondition>
+            <Feature name="possessive"/>
+        </EntryCondition>
+        <Feature name="ownership&amp;belonging" probability="0.5"/>
+        <Feature name="part&amp;part-of" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="INCIDENCE-TYPE">
+        <EntryCondition>
+            <Feature name="incidence"/>
+        </EntryCondition>
+        <Feature name="circumstance" probability="0.5"/>
+        <Feature name="circumhabence" probability="0.5"/>
+    </System>
+    <System metafunction="Ideational" name="POSSESSIVE2-TYPE">
+        <EntryCondition>
+            <Feature name="possessive2"/>
+        </EntryCondition>
+        <Feature name="thing-with-parts" probability="0.25"/>
+        <Feature name="part-of-thing" probability="0.25"/>
+        <Feature name="belonging" probability="0.25"/>
+        <Feature name="owner" probability="0.25"/>
+    </System>
+    <System metafunction="Ideational" name="EXPERIENTIAL-FUNCTION">
+        <EntryCondition>
+            <Feature name="group-phrase"/>
+        </EntryCondition>
+        <Feature name="process" probability="0.3333333333333333"/>
+        <Feature name="relational-participant" probability="0.3333333333333333"/>
+        <Feature name="downranked" probability="0.3333333333333333"/>
+    </System>
+    <System metafunction="Ideational" name="BEING-AND-HAVING-TYPE">
+        <EntryCondition>
+            <Feature name="being-and-having"/>
+        </EntryCondition>
+        <Feature name="relational" probability="0.5"/>
+        <Feature name="existential" probability="0.5"/>
+    </System>
+    <Gate name="ATTRIBUTIVE-HAVING-TYPE-GATE">
+        <EntryCondition>
+            <And>
+                <Feature name="having-type"/>
+                <Feature name="attributive"/>
+            </And>
+        </EntryCondition>
+        <Feature name="attributive-having-type">
+            <Conflate a="Carrier" b="Possessor"/>
+            <Conflate a="Attribute" b="Possessed"/>
+        </Feature>
+    </Gate>
+    <Gate name="ATTRIBUTIVE-BELONGING-TYPE-GATE">
+        <EntryCondition>
+            <And>
+                <Feature name="belonging-type"/>
+                <Feature name="attributive"/>
+            </And>
+        </EntryCondition>
+        <Feature name="attributive-belonging-type">
+            <Conflate a="Carrier" b="Possessed"/>
+            <Conflate a="Attribute" b="Possessor"/>
+        </Feature>
+    </Gate>
+</Region>
